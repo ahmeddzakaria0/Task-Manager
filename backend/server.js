@@ -7,11 +7,6 @@ require('dotenv').config()
 const bodyParser = require('body-parser')
 //Requiring Routes
 const userRouter = require('./router/userRouter');
-
-
-
-
-
 const login  = require('../backend/router/loginRouter')
 
 //DataBase Connection
