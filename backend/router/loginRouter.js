@@ -3,7 +3,7 @@ const router = express.Router();
 const { body } = require("express-validator")
 const loginController = require('./../controller/loginController')
 
-router.get('/login', 
+router.post('/login', 
 
 body("email")
 .notEmpty().withMessage()

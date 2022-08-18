@@ -30,9 +30,14 @@ exports.login = (req,res,next) => {
         if ( data && bcrypt.compareSync(req.body.password,data.password)){
             //create token 
             console.log("Creating Token")
-            const token = jwt.sign( {data} , process.env.TOKEN_KEY , {expiresIn:"1m"} )
+            const token = jwt.sign( {data} , process.env.TOKEN_KEY , {expiresIn:"5m"} )
+            res.cookie("jwt" , token , {httpOnly:true , maxAge:100000})
             console.log(`TOKEN ${token}`)
+            console.log("COOKIE CREATED")
             return res.status(200).json({ message: "Logged in" });
+        }
+        else{
+            res.status(403).send("You are not Registered")
         }
     })
     .catch((err)=>{return res.status(405).send("E-mail or password is incorrect") ;                       

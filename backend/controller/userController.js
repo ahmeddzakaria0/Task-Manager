@@ -36,7 +36,8 @@ exports.addUser = (req,res,next) => {
                     fullName: req.body.fullName,
                     userName : req.body.userName,
                     email: req.body.email,
-                    password: hash
+                    password: hash,
+                    role:req.body.role
                 })
                 //Generating Token
                 
@@ -45,7 +46,7 @@ exports.addUser = (req,res,next) => {
                 //Save THEN CATCH
                 .then((data) => {res.json({message:"User added :",data})})
                 .catch((err) => {console.error(`Couldnt Add(save) User//**//${next(err)}`);
-                                res.status(401).send("UserName or Email is already taken");})
+                                res.status(401).send("Couldnt Save");})
         
              })
             .catch(err => {console.error(`${next(err)}`)}) //bycrypt CATCH
@@ -63,6 +64,7 @@ exports.getAllUsers = (req,res,next) => {
         }
         else{
             userSchema.find({})
+            .populate('role')
         .then( (data) => {res.json({message:"Users : ",data}) })
         .catch( (error) => {next(error)} )
         }
